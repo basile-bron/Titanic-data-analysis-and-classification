@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from statistics import mean #average function
 from data_import import passagers
 #REMINDER
 """The passagers attributes are : survived, pclass, name, sex, age, sibsp, parch, ticket, fare, cabin, embarked"""
@@ -44,6 +45,55 @@ def gender_survival():
     plt.legend((p1[0], p2[0]), ('Men', 'Women'))
     plt.show()
 
+#social class survival distribution
+def class_survival():
+    """social class survival purcentage bars"""
+    #number of column
+    N = 3
+    ind = np.arange(N)
+    #seting bars
+    first_class = mean([passager.survived for passager in passagers if passager.pclass == 1])*100
+    second_class = mean([passager.survived for passager in passagers if passager.pclass == 2])*100
+    third_class = mean([passager.survived for passager in passagers if passager.pclass == 3])*100
+    width = 0.5 #bars width
+    p1 = plt.bar(ind, [first_class,second_class,third_class], width )
+    #captions
+    plt.ylabel('passagers')
+    plt.title('survival by class')
+    plt.xticks(ind, ('1st class', '2nd class', '3rd class'))
+    plt.yticks(np.arange(0, 110, 10))
+    plt.legend(["survived %"])
+    plt.show()
+
+#social class survival distribution
+def class_gender_survival():
+    """social class and gender survival purcentage bars"""
+    #number of column
+    N = 3
+    ind = np.arange(N)
+    #seting bars
+    female_first_class = 100*( sum([passager.survived for passager in passagers if passager.pclass == 1 if passager.sex == "female"]) / len([passager for passager in passagers if passager.pclass == 1]))
+    female_second_class = 100*( sum([passager.survived for passager in passagers if passager.pclass == 2 if passager.sex == "female"]) / len([passager for passager in passagers if passager.pclass == 2]))
+    female_third_class = 100*( sum([passager.survived for passager in passagers if passager.pclass == 3 if passager.sex == "female"]) / len([passager for passager in passagers if passager.pclass == 3]))
+    female = [female_first_class,female_second_class,female_third_class]
+
+    male_first_class = 100*( sum([passager.survived for passager in passagers if passager.pclass == 1 if passager.sex == "male"]) / len([passager for passager in passagers if passager.pclass == 1]))
+    male_second_class = 100*( sum([passager.survived for passager in passagers if passager.pclass == 2 if passager.sex == "male"]) / len([passager for passager in passagers if passager.pclass == 2]))
+    male_third_class = 100*( sum([passager.survived for passager in passagers if passager.pclass == 3 if passager.sex == "male"]) / len([passager for passager in passagers if passager.pclass == 3]))
+    male = [male_first_class, male_second_class, male_third_class]
+    width = 0.5 #bars width
+    p1 = plt.bar(ind, male, width)
+    p2 = plt.bar(ind, female, width ,bottom=male)
+    #captions
+    plt.ylabel('passagers')
+    plt.title('survival by class')
+    plt.xticks(ind, ('1st class', '2nd class', '3rd class'))
+    plt.yticks(np.arange(0, 110, 10))
+    plt.legend((p1[0], p2[0]), ('Men survived %', 'Women survived %'))
+    plt.show()
+
 #showing the stats
 gender_distribution()
 gender_survival()
+class_survival()
+class_gender_survival()
