@@ -1,9 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from statistics import mean #average function
-from data_import import passagers
+import csv
+from data_import import *
+
 #REMINDER
 """The passagers attributes are : survived, pclass, name, sex, age, sibsp, parch, ticket, fare, cabin, embarked"""
+#DATASET
+passagers = [passager(row) for row in import_csv("data/train.csv")]#create all the passager
 
 #STATISTICS
 #gender distrubution pie
