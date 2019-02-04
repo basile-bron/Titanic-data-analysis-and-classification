@@ -8,6 +8,8 @@ from keras.layers import Convolution1D,LSTM, Dropout, MaxPooling1D, Flatten, Den
 from keras.preprocessing import sequence
 from keras.optimizers import RMSprop, Adam, SGD
 from keras.regularizers import l2
+#visual output
+import matplotlib.pyplot as plt
 #custom
 from data_import import *
 
@@ -25,6 +27,7 @@ test_x, test_y = setting_input(test_passagers)
 
 train_x = np.array(train_x)
 test_x = np.array(test_x)
+
 
 
 #seting the model
@@ -53,13 +56,34 @@ model.compile(loss="binary_crossentropy", optimizer="adam", metrics=["acc"])
 print('model sumary##################')
 print(model.summary())
 
-model.fit(train_x, train_y, validation_data=(test_x, test_y), batch_size=8, nb_epoch=200, shuffle=True, verbose=2)
+history = model.fit(train_x, train_y, validation_data=(test_x, test_y), batch_size=8, nb_epoch=1000, shuffle=True, verbose=2)
 
-print(model.layers[0].get_weights()[1])
+
+
+# Plot training & validation accuracy values
+plt.plot(history.history['acc'])
+plt.plot(history.history['val_acc'])
+plt.title('Model accuracy')
+plt.ylabel('Accuracy')
+plt.xlabel('Epoch')
+plt.legend(['Train', 'Test'], loc='upper left')
+plt.show()
+
+# Plot training & validation loss values
+plt.plot(history.history['loss'])
+plt.plot(history.history['val_loss'])
+plt.title('Model loss')
+plt.ylabel('Loss')
+plt.xlabel('Epoch')
+plt.legend(['Train', 'Test'], loc='upper left')
+plt.show()
+
+#print(model.layers[0].get_weights()[1])
 
 #evaluate on test data
 loss, accuracy = model.evaluate(test_x, test_y)
 print("\nLoss: %.2f, Accuracy: %.2f%%" % (loss, accuracy*100))
+
 
 # make a prediction
 ynew = model.predict(test_x)
@@ -75,7 +99,7 @@ lines = list(r)
 for i in range(len(lines)-1) :
   lines[i+1][1] = int(np.round(ynew[i])) #[[int(np.round(prediction)) for prediction in ynew]]
 
-print(lines)
+#print(lines)
 
 writer = csv.writer(open('data/output.csv', 'w'))
 writer.writerows(lines)

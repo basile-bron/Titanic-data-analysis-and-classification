@@ -95,6 +95,8 @@ def clean_passagers(passagers):
 
 #SETTING TRAIN DATASET
 def setting_input(passagers):
+    train_x = []
+    train_y = []
     for passager in passagers:
         train_x.append([passager.pclass,passager.sex,passager.age ,passager.sibsp,passager.parch,passager.fare,passager.cabin])
         train_y.append(passager.survived)
