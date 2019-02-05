@@ -5,6 +5,10 @@ This repository is my submission for the **kaggle competition** : "*Titanic: Mac
 
 The goal was to predict the survival of 1300 passagers only by using the remaining 800.
 
+## Install requirements
+
+'''pip install -r requirements.txt'''
+
 ## Statistics
 
 This submission was a good introduction to the **pyplot** library here is some of the charts that you can find in this repository :

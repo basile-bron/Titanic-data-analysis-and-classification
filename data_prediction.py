@@ -56,9 +56,7 @@ model.compile(loss="binary_crossentropy", optimizer="adam", metrics=["acc"])
 print('model sumary##################')
 print(model.summary())
 
-history = model.fit(train_x, train_y, validation_data=(test_x, test_y), batch_size=8, nb_epoch=1000, shuffle=True, verbose=2)
-
-
+history = model.fit(train_x, train_y, validation_data=(test_x, test_y), batch_size=8, nb_epoch=10000, shuffle=True, verbose=2)
 
 # Plot training & validation accuracy values
 plt.plot(history.history['acc'])
