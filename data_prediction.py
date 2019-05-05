@@ -30,6 +30,41 @@ test_x = np.array(test_x)
 
 
 
+
+
+
+
+
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.pipeline import make_pipeline
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble.gradient_boosting import GradientBoostingClassifier
+from sklearn.feature_selection import SelectKBest
+from sklearn.model_selection import StratifiedKFold
+from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import cross_val_score
+from sklearn.feature_selection import SelectFromModel
+
+parameters = {'bootstrap': False, 'min_samples_leaf': 3, 'n_estimators': 50,
+                  'min_samples_split': 10, 'max_features': 'sqrt', 'max_depth': 6}
+
+model = RandomForestClassifier(bootstrap= False, min_samples_leaf= 3, n_estimators= 50,
+                  min_samples_split= 10, max_features= 'sqrt', max_depth= 6)
+model.fit(train_x, train_y)
+
+
+pred = model.predict(test_x)
+submission = pd.DataFrame({"PassengerId":test_x['PassengerId'],"Survived":pred})
+submission.to_csv("titan_random_forest_result.csv",index=False)
+
+
+
+
+
+
+"""
+
+
 #seting the model
 print('setting the model')
 
@@ -101,3 +136,4 @@ for i in range(len(lines)-1) :
 
 writer = csv.writer(open('data/output.csv', 'w'))
 writer.writerows(lines)
+"""
