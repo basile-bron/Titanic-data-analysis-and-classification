@@ -1,5 +1,6 @@
-![alt text](https://raw.githubusercontent.com/BasileBron/Titanic-data-analysis-and-classification/master/data/Graphs/banner.jpg)
 # Titanic-data-analysis-and-classification
+
+![alt text](https://raw.githubusercontent.com/BasileBron/Titanic-data-analysis-and-classification/master/data/Graphs/banner.jpg)
 
 This repository is my submission for the **kaggle competition** : "*Titanic: Machine Learning from Disaster*"
 
